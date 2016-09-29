@@ -20,5 +20,6 @@
 using namespace std;
 
 #include "../Utils/include/Utils.h"
+#include <SDL.h>
 
 #endif

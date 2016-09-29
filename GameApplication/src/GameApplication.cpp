@@ -39,6 +39,7 @@ bool GameApplication::init(int args,char * arg[])
 {
 	parseConfig(args,arg);
 
+	// init everything - SDL, if it
 	m_WindowWidth = m_Options.getOptionAsInt("WindowWidth");
 	m_WindowHeight = m_Options.getOptionAsInt("WindowHeight");
 	m_WindowTitle = m_Options.getOption("WindowTitle");
