@@ -19,7 +19,12 @@ public:
 
 	//Basically runs our game
 	void run();
+
+	void createWindow(const string& windowTitle, const unsigned int width, const unsigned int height, const unsigned int windowFlags = 0);
 protected:
+
+	SDL_Window * m_pWindow;
+
 	ProgramOptions m_Options;
 
 	unsigned int m_WindowWidth;
