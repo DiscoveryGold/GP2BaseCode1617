@@ -31,9 +31,19 @@ public:
 	void run();
 
 	void createWindow(const string& windowTitle,const unsigned int width, const unsigned int height, const unsigned int windowFlags=0);
+	
+	void update();
+
+	virtual void OnBeginRender();
+	void renfer();
+	virtual void OnEndRender();
+
+	void initGraphics();
+
 protected:
 	//SDL Windows
 	SDL_Window * m_pWindow;
+	SDL_GLContext m_GLcontext;
 
 	bool m_bIsRunning;
 	bool m_bIsActive;

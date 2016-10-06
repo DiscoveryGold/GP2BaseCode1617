@@ -34,6 +34,59 @@ void GameApplication::createWindow(const string& windowTitle,const unsigned int 
 		m_WindowHeight=height;
 }
 
+void GameApplication::update()
+{
+}
+
+void GameApplication::OnBeginRender()
+{
+}
+
+void GameApplication::renfer()
+{
+}
+
+void GameApplication::OnEndRender()
+{
+}
+
+void GameApplication::initGraphics()
+{
+	//openGL Context
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
+
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+	m_GLcontext = SDL_GL_CreateContext(m_pWindow);
+
+	//GLEW
+	glewExperimental = GL_TRUE;
+
+	GLenum err = glewInit();
+
+	if (GLEW_OK != err)
+	{
+		LOG(ERROR, "Error: %s", glewGetErrorString(err));
+	}
+
+	//OpenGL states
+	//Smooth shading
+	glShadeModel(GL_SMOOTH);
+
+	//clear the background to black 
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
+	//clear the depth buffer to 1.0
+	glClearDepth(1.0f);
+
+	//enable depth testing 
+	glEnable(GL_DEPTH_TEST);
+
+	//Turn on best perspective correction
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+}
+
+
 void GameApplication::parseConfig(int args,char * arg[])
 {
   stringstream ss;
@@ -165,4 +218,7 @@ void GameApplication::run()
 			}
 		}
 	}
+
+	
 }
+
