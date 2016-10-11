@@ -38,6 +38,10 @@ public:
 	//Basically runs our game
 	void run();
 
+	void initScene();
+
+	void destroyScene();
+
 	void createWindow(const string& windowTitle,const unsigned int width, const unsigned int height, const unsigned int windowFlags=0);
 	void initGraphics();
 protected:
