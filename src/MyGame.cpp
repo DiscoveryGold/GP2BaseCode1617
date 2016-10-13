@@ -27,6 +27,24 @@ void MyGame::initScene()
 		{0.0f, 0.5f, 0.0f}
 	};
 
+	GLuint vertexShaderProgram = 0;
+	std::string vsPath = ASSET_PATH + SHADER_PATH + "/simpleVS.glsl";
+	vertexShaderProgram = loadShaderFromFile(vsPath, VERTEX_SHADER);
+
+	GLuint fragmentShaderProgram = 0;
+	std::string fsPath = ASSET_PATH + SHADER_PATH + "/simpleFS.glsl";
+	fragmentShaderProgram = loadShaderFromFile(vsPath, VERTEX_SHADER);
+
+	m_ShaderProgram = glCreateProgram();
+	glAttachShader(m_ShaderProgram, vertexShaderProgram);
+	glAttachShader(m_ShaderProgram, fragmentShaderProgram);
+	glLinkProgram(m_ShaderProgram);
+	checkForLinkErrors(m_ShaderProgram);
+	logShaderInfo(m_ShaderProgram);
+
+	glDeleteShader(vertexShaderProgram);
+	glDeleteShader(fragmentShaderProgram);
+
 	glGenBuffers(1, &m_VBO);	//Takes an int which specifies the number of buffers you are going to generate. 2nd parameter is a ponter to one or an array of ints.
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);	//all binds the specified buffer(2nd parameter) to the pipeline(this is a state!), the 1st parameter specifies what type of buffer we are binding(Array Buffer) will hold vertices.
 	glBufferData(GL_ARRAY_BUFFER, 3 * sizeof(Vertex), verts, GL_STATIC_DRAW);	// copies data to the bound buffer, 1st parameter is what type of buffer we are copying too, 2nd parameter is the size of the data we are copying into the buffer, 3rd parameter is the actual data we are copying, and the last parameter is a hint to OpenGL on what do with the buffer data, in this case the data in the buffer will not be updated during rendering.
@@ -44,6 +62,7 @@ void MyGame::initScene()
 
 void MyGame::destroyScene()
 {
+	glDeleteProgram(m_ShaderProgram);
 	GameApplication::destroyScene();
 }
 
