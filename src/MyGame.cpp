@@ -68,10 +68,25 @@ void MyGame::destroyScene()
 
 void MyGame::render()
 {
+	glUseProgram(m_ShaderProgram);
+	glBindVertexArray(m_VAO);
+
+	GLuint MVPLoaction = glGetUniformLocation(m_ShaderProgram, "MVP");
+
+	if (MVPLoaction != 1)
+	{
+		mat4 MVP = m_ProjMatrix*m_ViewMatrix*m_ModelMatrix;
+		glUniformMatrix4fv(MVPLoaction, 1, GL_FALSE, glm::value_ptr(MVP));
+	}
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+
 	GameApplication::render();
 }
 
 void MyGame::update()
 {
+	m_ProjMatrix = perspective(radians(45.0f), (float)m_WindowWidth / (float)m_WindowHeight, 0.1f, 100.0f);
+	m_ViewMatrix = lookAt(vec3(0.0f, 0.0f, 10.0f), vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f));
+	m_ModelMatrix = translate(mat4(1.0f), vec3(0.0f, 0.0f, -1.0f));
 	GameApplication::update();
 }

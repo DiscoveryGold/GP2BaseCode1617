@@ -61,8 +61,17 @@ void GameApplication::initGraphics()
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-    m_GLcontext = SDL_GL_CreateContext(m_pWindow);
-    //Smooth shading
+	m_GLcontext = SDL_GL_CreateContext(m_pWindow);
+
+	glewExperimental = GL_TRUE;
+
+	GLenum err = glewInit();
+
+	if (GLEW_OK != err) {
+		std::cout << "Error: " << glewGetErrorString(err) << std::endl;
+	}
+
+	//Smooth shading
 		glShadeModel( GL_SMOOTH );
 
 		//clear the background to black
