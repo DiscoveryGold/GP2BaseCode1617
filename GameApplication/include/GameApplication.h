@@ -35,6 +35,8 @@ public:
 
 	virtual void update();
 
+	void initGraphics();
+
 	//Basically runs our game
 	void run();
 
@@ -42,6 +44,7 @@ public:
 protected:
 	//SDL Windows
 	SDL_Window * m_pWindow;
+	SDL_GLContext m_GLcontext;
 
 	bool m_bIsRunning;
 	bool m_bIsActive;

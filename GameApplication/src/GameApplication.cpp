@@ -123,6 +123,45 @@ void GameApplication::update()
 {
 }
 
+void GameApplication::initGraphics()
+{
+	//openGl Context
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_COMPATIBILITY);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 1);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+	m_GLcontext = SDL_GL_CreateContext(m_pWindow);
+
+	//GLEW
+	glewExperimental = GL_TRUE;
+
+	GLenum err = glewInit();
+
+	if (GLEW_OK != err)
+	{
+		LOG(ERROR, "Error: %s", glewGetErrorString(err));
+	}
+
+	//opengl States
+	//Smooth SHading
+	glShadeModel(GL_SMOOTH);
+
+	//clear the background to black
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
+	//Clear the depth buffer to 1.0
+	glClearDepth(1.0f);
+
+	//Enable depth testing
+	glEnable(GL_DEPTH_TEST);
+
+	//The depth test to use
+	glDepthFunc(GL_LEQUAL);
+
+	//Turn on best perspective cossection
+	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+
+}
+
 void GameApplication::run()
 {
 	SDL_Event event;
