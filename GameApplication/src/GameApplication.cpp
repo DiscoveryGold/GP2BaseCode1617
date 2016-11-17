@@ -119,6 +119,29 @@ void GameApplication::OnBeginRender()
 
 void GameApplication::render()
 {
+	//switch to model view
+	glMatrixMode(GL_MODELVIEW);
+	//reset using the identity matrix
+	glLoadIdentity();
+	//Translate to -5.0f on the z-axis
+	glTranslatef(0.0f, 0.0f, -5.0f);
+	//begin drawing traiangles
+	glBegin(GL_TRIANGLES);
+	glColor3f(1.0f, 0.0f, 0.0f); //colour of the vertices
+	glVertex3f(1.0f, 1.0f, 0.0f); //top
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 0.0f); //bottom left
+	glColor3f(1.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, -1.0f, 0.0f);//bottom right
+
+	//triangle 2
+	glColor3f(1.0f, 1.0f, 0.0f); //colour of the vertices
+	glVertex3f(-1.0f, -1.0f, 0.0f); //bottom left
+	glColor3f(0.0f, 1.0f, 1.0f);
+	glVertex3f(-1.0f, 1.0f, 0.0f);//bottom right
+	glColor3f(1.0f, 1.0f, 1.0f);
+	glVertex3f(1.0f, 1.0f, 0.0f); //top
+	glEnd();
 }
 
 void GameApplication::OnEndRender()
