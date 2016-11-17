@@ -107,6 +107,22 @@ void GameApplication::OnRestored()
   m_bIsActive=true;
 }
 
+void GameApplication::OnBeginRender()
+{
+}
+
+void GameApplication::render()
+{
+}
+
+void GameApplication::OnEndRender()
+{
+}
+
+void GameApplication::update()
+{
+}
+
 void GameApplication::run()
 {
 	SDL_Event event;
@@ -163,8 +179,14 @@ void GameApplication::run()
 				}
 			}
 		}
+		
 		//messages have been handled now do our work for the game
 		if (m_bIsActive && m_bIsRunning) {
 		}
+		update();
+
+		OnBeginRender();
+		render();
+		OnEndRender();
 	}
 }
