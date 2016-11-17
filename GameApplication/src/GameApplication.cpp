@@ -111,6 +111,10 @@ void GameApplication::OnRestored()
 
 void GameApplication::OnBeginRender()
 {
+	//set the clear colour(background)
+	glClearColor(0.054f, 0.250f, 0.3f, 0.0f);
+	//clear the color and depth buffer
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void GameApplication::render()
@@ -119,6 +123,7 @@ void GameApplication::render()
 
 void GameApplication::OnEndRender()
 {
+	SDL_GL_SwapWindow(m_pWindow);
 }
 
 void GameApplication::update()
@@ -161,7 +166,42 @@ void GameApplication::initGraphics()
 
 	//Turn on best perspective cossection
 	glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+	//set our viewport
+	setViewport((int)m_WindowWidth, (int)m_WindowHeight);
 
+}
+
+//function to set/reset viewport
+void GameApplication::setViewport(int width, int height)
+{
+	//screen Ration
+	GLfloat ratio;
+
+	//make sure height is always above 1
+	if (height == 0)
+	{
+		height = 1;
+	}
+
+	//calculate screen ration
+	ratio = (GLfloat)width / (GLfloat)height;
+
+	//set viewport
+	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
+
+	//change to projection matrix mode
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+
+	//Calculate perspective matrix, using GLM 
+	mat4 projectionMatrix = perspective(radians(45.0f), ratio, 0.1f, 100.0f);
+	glLoadMatrixf(&projectionMatrix[0][0]);
+
+	//switch to modelview
+	glMatrixMode(GL_MODELVIEW);
+
+	//reset using the Identity Matrix
+	glLoadIdentity();
 }
 
 void GameApplication::run()

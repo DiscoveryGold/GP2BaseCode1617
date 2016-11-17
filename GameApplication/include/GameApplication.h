@@ -37,6 +37,8 @@ public:
 
 	void initGraphics();
 
+	void setViewport(int width, int height); //parameters of the width and height of the window
+
 	//Basically runs our game
 	void run();
 
