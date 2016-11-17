@@ -5,7 +5,7 @@ GameApplication::GameApplication()
  	m_pWindow=nullptr;
 	m_WindowWidth=640;
 	m_WindowHeight=480;
-	m_WindowCreationFlags=0;
+	m_WindowCreationFlags=SDL_WINDOW_OPENGL;
 	CREATELOG("log.txt");
 	m_bIsActive=false;
 	m_bIsRunning=false;
@@ -75,7 +75,7 @@ bool GameApplication::init(int args,char * arg[])
 	m_WindowHeight=m_Options.getOptionAsInt("WindowHeight");
 
 	createWindow(m_Options.getOption("WindowTitle"),m_WindowWidth,m_WindowHeight,m_WindowCreationFlags);
-
+	initGraphics();
 
 	m_bIsActive=true;
 	return true;
@@ -85,6 +85,8 @@ void GameApplication::OnQuit()
 {
 	//set our boolean which controls the loop to false
 	m_bIsRunning = false;
+	//clean up, reverse order!!
+	SDL_GL_DeleteContext(m_GLcontext);
 	SDL_DestroyWindow(m_pWindow);
 	SDL_Quit();
 	CLOSELOG();
